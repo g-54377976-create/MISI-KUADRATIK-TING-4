@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi Kuadratik: Ejen X | 4 Dinamik</title>
+<style>
+:root{--navy:#10254a;--blue:#1d4ed8;--gold:#fbbf24;--pale:#eff6ff;--green:#15803d;--red:#b91c1c}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:linear-gradient(145deg,#0f1e3d,#1d4ed8);color:#172033}
+main{max-width:760px;margin:auto;padding:16px}.hero{color:white;padding:22px 18px;border-radius:22px;background:linear-gradient(130deg,#10254a,#1d4ed8);border:1px solid #ffffff44;box-shadow:0 12px 30px #07152f55}
+.kicker{color:#fde68a;font-weight:800;letter-spacing:1.5px;font-size:.78rem}.hero h1{font-size:clamp(1.8rem,6vw,2.8rem);line-height:1.05;margin:8px 0}.hero p{margin:8px 0;color:#e5edff}.pill{display:inline-block;background:#ffffff1c;border:1px solid #ffffff55;border-radius:999px;padding:6px 10px;margin:5px 5px 0 0;font-size:.82rem}
+.panel{background:white;border-radius:18px;padding:18px;margin-top:14px;box-shadow:0 8px 22px #06133335}.progress{height:9px;background:#e5e7eb;border-radius:99px;overflow:hidden;margin:10px 0}.bar{height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);width:0%;transition:width .3s}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.small{font-size:.88rem;color:#64748b}.stage{color:#1d4ed8;font-weight:800;font-size:.82rem;text-transform:uppercase;letter-spacing:.8px}.question{font-size:1.2rem;font-weight:750;line-height:1.45;margin:12px 0}.answers{display:grid;gap:9px}.answer{width:100%;text-align:left;border:2px solid #dbe4f0;background:#fff;padding:13px 14px;border-radius:12px;font-size:1rem;color:#172033;cursor:pointer}.answer:hover{border-color:#60a5fa;background:#f8fbff}.answer.selected{border-color:#2563eb;background:#eff6ff}.answer:disabled{cursor:default}.answer.correct{border-color:#16a34a;background:#f0fdf4}.answer.wrong{border-color:#dc2626;background:#fef2f2}.btn{border:0;border-radius:12px;padding:13px 16px;font-weight:800;font-size:1rem;cursor:pointer;background:#1d4ed8;color:white}.btn.gold{background:#f59e0b;color:#172033}.btn.secondary{background:#e2e8f0;color:#172033}.btn:disabled{opacity:.45;cursor:not-allowed}.feedback{padding:12px;border-radius:12px;margin-top:12px;line-height:1.45}.good{background:#f0fdf4;color:#166534}.bad{background:#fef2f2;color:#991b1b}.hidden{display:none!important}.key{font-size:1.5rem}.rank{font-size:1.5rem;font-weight:900;color:#1d4ed8}.footer{text-align:center;color:#dbeafe;font-size:.8rem;padding:16px}
+input{width:100%;padding:12px;border:2px solid #cbd5e1;border-radius:10px;font-size:1rem;margin:6px 0 12px}
+@media(max-width:480px){main{padding:10px}.panel{padding:15px}.hero{padding:19px 15px}.question{font-size:1.1rem}}
+</style>
+</head>
+<body><main>
+<header class="hero">
+<div class="kicker">🎮 CABARAN MATEMATIK • TINGKATAN 4</div>
+<h1>MISI KUADRATIK:<br> EJEN X</h1>
+<p>Selamatkan Sistem Bandar Dinamik! Selesaikan cabaran fungsi dan persamaan kuadratik untuk mengumpul kunci digital.</p>
+<span class="pill">👥 Kelas 4 Dinamik</span><span class="pill">🔑 10 cabaran</span><span class="pill">⭐ 100 XP</span>
+</header>
+<section class="panel" id="intro">
+<h2>🕵️ Ejen, bersedia?</h2>
+<p>Sistem Matematik Bandar Dinamik telah dikunci. Jawab 10 soalan untuk membuka semula sistem.</p>
+<label for="student"><b>Nama murid</b></label><input id="student" placeholder="Taip nama penuh anda" autocomplete="name">
+<label for="className"><b>Kelas</b></label><input id="className" value="4 Dinamik">
+<ul><li>Pilih satu jawapan bagi setiap cabaran.</li><li>Setiap jawapan betul mendapat <b>10 XP</b>.</li><li>Baca maklum balas dan cuba fahami langkah pengiraan.</li><li>Di akhir misi, tunjukkan keputusan kepada guru.</li></ul>
+<button class="btn gold" id="start">🚀 Mulakan misi</button>
+</section>
+<section class="panel hidden" id="game">
+<div class="row"><span class="stage" id="stage">Tahap 1</span><b>⭐ <span id="score">0</span> XP</b></div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="row small"><span id="count">Cabaran 1 daripada 10</span><span id="keys">🔑 0/5 kunci</span></div>
+<div class="question" id="question"></div><div class="answers" id="answers"></div>
+<div id="feedback" class="feedback hidden"></div>
+<div class="row" style="margin-top:14px"><span class="small" id="hint">Pilih jawapan terbaik.</span><button class="btn" id="check" disabled>Semak jawapan</button><button class="btn gold hidden" id="next">Seterusnya →</button></div>
+</section>
+<section class="panel hidden" id="result">
+<div class="kicker" style="color:#1d4ed8">MISI SELESAI</div><h2>🎉 Tahniah, Ejen!</h2><p id="resultText"></p>
+<div class="rank" id="rank"></div><p id="rankDesc"></p>
+<div class="panel" style="background:#eff6ff;box-shadow:none"><div class="row"><span>Nama</span><b id="outName"></b></div><div class="row"><span>Kelas</span><b id="outClass"></b></div><div class="row"><span>Skor</span><b id="outScore"></b></div><div class="row"><span>Kunci dikumpul</span><b id="outKeys"></b></div></div>
+<p><b>Langkah akhir:</b> Ambil tangkap layar keputusan ini dan hantar kepada guru melalui Google Classroom atau WhatsApp. Skor dalam permainan ini tidak dihantar secara automatik kepada guru.</p>
+<button class="btn" onclick="window.print()">🖨️ Simpan / cetak keputusan</button> <button class="btn secondary" id="retry">Main semula</button>
+</section>
+<div class="footer">SMKBBST • Misi Kuadratik: Ejen X • “Hari ini lebih baik daripada semalam”</div>
+</main>
+<script>
+const qs=[
+{stage:"Tahap 1 • Kod Rahsia Algebra",q:"Yang manakah ungkapan kuadratik dalam satu pemboleh ubah?",a:["3x + 2","x³ − 1","2x² − 5x + 1","2x² + y"],c:2,e:"Ungkapan kuadratik mempunyai kuasa tertinggi pemboleh ubah 2 dan hanya satu pemboleh ubah."},
+{stage:"Tahap 1 • Kod Rahsia Algebra",q:"Bagi 3x² − 4x + 7, apakah nilai a, b dan c?",a:["a = 3, b = −4, c = 7","a = −4, b = 3, c = 7","a = 3, b = 4, c = −7","a = 7, b = −4, c = 3"],c:0,e:"Bandingkan dengan bentuk am ax² + bx + c = 0. Maka a=3, b=−4 dan c=7."},
+{stage:"Tahap 2 • Pemburu Graf",q:"Graf fungsi f(x) = −2x² + 3x + 1 membuka ke arah…",a:["Atas kerana a positif","Bawah kerana a negatif","Kiri kerana b positif","Kanan kerana c positif"],c:1,e:"Jika pekali x², iaitu a, negatif, parabola membuka ke bawah."},
+{stage:"Tahap 2 • Pemburu Graf",q:"Apakah paksi simetri bagi f(x) = x² − 4x + 3?",a:["x = −2","x = 2","y = 2","x = 4"],c:1,e:"Paksi simetri ialah x = −b/(2a). Di sini a=1 dan b=−4, jadi x=2."},
+{stage:"Tahap 3 • Arkitek Persamaan",q:"Sebuah segi empat tepat mempunyai panjang (x + 5) cm dan lebar x cm. Apakah ungkapan luasnya?",a:["2x + 5","x² + 5","x² + 5x","x² − 5x"],c:2,e:"Luas = panjang × lebar = (x+5)x = x² + 5x."},
+{stage:"Tahap 3 • Arkitek Persamaan",q:"Jika luas segi empat tepat itu ialah 84 cm², persamaan yang betul ialah…",a:["x² + 5x + 84 = 0","x² + 5x − 84 = 0","x² − 5x − 84 = 0","5x − 84 = 0"],c:1,e:"x² + 5x = 84. Pindahkan 84 ke sebelah kiri: x² + 5x − 84 = 0."},
+{stage:"Tahap 4 • Pemburu Punca",q:"Selesaikan x² − 5x + 6 = 0.",a:["x = 1 atau 6","x = −2 atau −3","x = 2 atau 3","x = −2 atau 3"],c:2,e:"Faktorkan: (x−2)(x−3)=0. Maka x=2 atau x=3."},
+{stage:"Tahap 4 • Pemburu Punca",q:"Mengapa x = 4 ialah punca bagi x² − 5x + 4 = 0?",a:["Kerana 4² − 5(4) + 4 = 0","Kerana 4² + 5(4) + 4 = 40","Kerana 4 − 5 + 4 = 3","Kerana 4² − 5(4) + 4 = 4"],c:0,e:"Gantikan x=4: 16−20+4=0. Jadi x=4 memenuhi persamaan."},
+{stage:"Tahap 5 • Bos Terakhir",q:"Selesaikan x² − x − 6 = 0.",a:["x = 2 atau −3","x = −2 atau 3","x = 1 atau −6","x = 3 atau 6"],c:1,e:"Faktorkan: (x−3)(x+2)=0. Maka x=3 atau x=−2."},
+{stage:"Tahap 5 • Bos Terakhir",q:"Pada graf fungsi kuadratik, punca-punca persamaan ialah…",a:["Titik persilangan graf dengan paksi-x","Titik persilangan graf dengan paksi-y sahaja","Puncak maksimum sahaja","Semua titik pada parabola"],c:0,e:"Punca ialah nilai x apabila y=0, iaitu titik graf memotong atau menyentuh paksi-x."}
+];
+let i=0,score=0,selected=null,answered=false,results=[];
+const $=id=>document.getElementById(id);
+$("start").onclick=()=>{if(!$("student").value.trim()){alert("Sila isi nama murid dahulu.");$("student").focus();return}$("intro").classList.add("hidden");$("game").classList.remove("hidden");render()};
+function render(){let q=qs[i];selected=null;answered=false;$("stage").textContent=q.stage;$("score").textContent=score;$("count").textContent=`Cabaran ${i+1} daripada ${qs.length}`;$("keys").textContent=`🔑 ${Math.floor(i/2)} / 5 kunci`;$("bar").style.width=`${i/qs.length*100}%`;$("question").textContent=q.q;$("answers").innerHTML="";q.a.forEach((a,j)=>{let b=document.createElement("button");b.className="answer";b.textContent=String.fromCharCode(65+j)+". "+a;b.onclick=()=>{if(answered)return;selected=j;document.querySelectorAll(".answer").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");$("check").disabled=false};$("answers").appendChild(b)});$("feedback").classList.add("hidden");$("check").classList.remove("hidden");$("check").disabled=true;$("next").classList.add("hidden");$("hint").textContent="Pilih jawapan terbaik."}
+$("check").onclick=()=>{if(selected===null||answered)return;answered=true;let q=qs[i],ok=selected===q.c;if(ok)score+=10;results.push(ok);document.querySelectorAll(".answer").forEach((b,j)=>{b.disabled=true;if(j===q.c)b.classList.add("correct");else if(j===selected)b.classList.add("wrong")});$("score").textContent=score;$("feedback").className="feedback "+(ok?"good":"bad");$("feedback").textContent=(ok?"✅ Betul! +10 XP. ":"❌ Belum tepat. ")+q.e;$("check").classList.add("hidden");$("next").classList.remove("hidden");$("next").textContent=i===qs.length-1?"Lihat keputusan 🏆":"Seterusnya →";$("bar").style.width=`${(i+1)/qs.length*100}%`};
+$("next").onclick=()=>{if(i<qs.length-1){i++;render()}else finish()};
+function finish(){ $("game").classList.add("hidden");$("result").classList.remove("hidden");let name=$("student").value.trim(),cl=$("className").value.trim()||"4 Dinamik",rank,desc;if(score>=90){rank="🏆 MASTER KUADRATIK";desc="Hebat! Penguasaan sangat baik. Anda berjaya menyelamatkan sistem."}else if(score>=70){rank="🥇 EJEN ELIT";desc="Bagus! Anda menguasai kebanyakan cabaran."}else if(score>=40){rank="🥈 EJEN MAHIR";desc="Teruskan latihan untuk mengukuhkan kemahiran."}else{rank="🌱 EJEN PELATIH";desc="Jangan putus asa. Semak maklum balas dan cuba lagi."}$("resultText").textContent=`${name}, anda memperoleh ${score} daripada 100 XP.`;$("rank").textContent=rank;$("rankDesc").textContent=desc;$("outName").textContent=name;$("outClass").textContent=cl;$("outScore").textContent=`${score}/100 (${results.filter(Boolean).length}/10 betul)`;$("outKeys").textContent=`${results.filter(Boolean).length}/10 cabaran berjaya`;}
+$("retry").onclick=()=>{i=0;score=0;results=[];$("result").classList.add("hidden");$("intro").classList.remove("hidden");};
+</script></body></html>
